@@ -1,7 +1,7 @@
 {
-  "name": "firefrom",
-  "version": "0.2.0",
-  "description": "Firebase toolkit for sync with redux",
+  "name": "fireform",
+  "version": "0.2.1",
+  "description": "React-Form wrapper for loading and saving data from firebase",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [

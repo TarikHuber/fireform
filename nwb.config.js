@@ -3,7 +3,7 @@ module.exports = {
   npm: {
     esModules: true,
     umd: {
-      global: 'firekit',
+      global: 'fireform',
       externals: {
         react: 'React'
       }
