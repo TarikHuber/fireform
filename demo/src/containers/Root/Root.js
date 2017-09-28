@@ -8,7 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { IntlProvider } from 'react-intl'
 import { Routes } from '../../components/Routes';
 import firebase from 'firebase';
-import { withFirebase } from '../../../../src';
+import { withFirebase } from 'firekit'
 
 class Root extends Component {
 

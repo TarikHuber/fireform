@@ -10,7 +10,8 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import firebase from 'firebase';
 import {formValueSelector } from 'redux-form';
-import { withFirebase, FireForm } from '../../../../src';
+import { withFirebase } from 'firekit';
+import FireForm  from '../../../../src';
 
 const path='/users/';
 

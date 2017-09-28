@@ -1,6 +1,6 @@
 {
-  "name": "firekit",
-  "version": "0.1.31",
+  "name": "firefrom",
+  "version": "0.2.0",
   "description": "Firebase toolkit for sync with redux",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "firebase": "^4.4.0",
     "firebaseui": "^2.3.0",
+    "firekit": "^0.1.31",
     "github-markdown-css": "^2.8.0",
     "immutable": "^3.8.1",
     "intl": "^1.2.5",
@@ -63,9 +64,10 @@
   "author": "Tarik Huber",
   "homepage": "https://www.react-most-wanted.com/",
   "license": "MIT",
-  "repository": "https://github.com/TarikHuber/firekit",
+  "repository": "https://github.com/TarikHuber/fireform",
   "keywords": [
     "react-component",
+    "react-form",
     "firebase",
     "redux",
     "react"

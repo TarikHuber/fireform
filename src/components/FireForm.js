@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { initialize } from 'redux-form';
-import withFirebase  from '../withFirebase';
 
 class FireForm extends Component {
 
@@ -85,13 +85,13 @@ class FireForm extends Component {
   }
 
   componentWillMount(){
-    const { path, uid, name, firebaseApp} = this.props;
+    const { path, uid, name, firebaseApp, initialize} = this.props;
 
     if(uid){
       firebaseApp.database().ref(`${path}${uid}`).on('value',
       snapshot => {
         this.setState({initialized: true}, ()=>{
-          this.props.dispatch(initialize(name, snapshot.val(), true))
+          initialize(name, snapshot.val(), true)
         })
       })
     }else{
@@ -101,14 +101,14 @@ class FireForm extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    const {  uid, name, path, firebaseApp  } = this.props;
+    const {  uid, name, path, firebaseApp, initialize  } = this.props;
     const {  uid: nextUid  } = nextProps;
 
     if(uid && uid!==nextUid){
       firebaseApp.database().ref(`${path}${nextUid}`).on('value',
       snapshot => {
         this.setState({initialized: true}, ()=>{
-          nextProps.dispatch(initialize(name, snapshot.val(), true))
+          initialize(name, snapshot.val(), true)
         })
       })
     }
@@ -133,6 +133,7 @@ class FireForm extends Component {
 FireForm.propTypes = {
   path: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  firebaseApp: PropTypes.any.isRequired,
   uid: PropTypes.string,
   onSubmitSuccess: PropTypes.func,
   onDelete: PropTypes.func,
@@ -141,4 +142,11 @@ FireForm.propTypes = {
 };
 
 
-export default withFirebase(FireForm);
+const mapStateToProps = (state) => {
+  return {
+  };
+};
+
+export default connect(
+  mapStateToProps, {initialize}
+)(FireForm);

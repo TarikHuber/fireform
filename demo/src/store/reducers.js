@@ -5,7 +5,7 @@ import { reducer as formReducer } from 'redux-form'
 import dialogs from './dialogs/reducer';
 import locale from './locale/reducer';
 import theme from './theme/reducer';
-import firekitReducers from '../../../src';
+import firekitReducers from 'firekit';
 
 const reducers = combineReducers({
   browser: responsiveStateReducer,
