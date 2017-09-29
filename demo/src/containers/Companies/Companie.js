@@ -90,7 +90,9 @@ class Companie extends Component {
             firebaseApp={firebaseApp}
             name={'companie'}
             path={`${path}`}
-            onSubmitSuccess={(values, key)=>{history.push('/companies');}}
+            onSubmitSuccess={(values, key)=>{
+              history.push('/companies');
+            }}
             onDelete={(values)=>{history.push('/companies');}}
             handleCreateValues={this.handleCreateValues}
             uid={match.params.uid}>

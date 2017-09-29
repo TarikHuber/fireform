@@ -41,30 +41,19 @@ class FireForm extends Component {
 
 
   handleSubmit =(values) => {
-    const { path, uid, onSubmitSuccess, firebaseApp} = this.props;
+    const { path, uid, firebaseApp} = this.props;
 
     if(uid){
-
       const updateValues=this.getUpdateValues(this.clean(values));
 
       if(updateValues){
-        firebaseApp.database().ref().child(`${path}${uid}`).update(updateValues).then(()=>{
-          if(onSubmitSuccess && onSubmitSuccess instanceof Function){
-            onSubmitSuccess(values, uid);
-          }
-        }, e=>{console.log(e);})
+        firebaseApp.database().ref().child(`${path}${uid}`).update(updateValues)
       }
-
     }else{
 
       const createValues=this.getCreateValues(this.clean(values));
-
       if(createValues){
-        firebaseApp.database().ref().child(`${path}`).push(createValues).then((snap)=>{
-          if(onSubmitSuccess && onSubmitSuccess instanceof Function){
-            onSubmitSuccess(values, snap.key);
-          }
-        }, e=>{console.log(e);})
+        firebaseApp.database().ref().child(`${path}`).push(createValues)
       }
 
     }
@@ -119,7 +108,6 @@ class FireForm extends Component {
     firebaseApp.database().ref(`${path}${uid}`).off()
   }
 
-
   render() {
 
     return React.Children.only(React.cloneElement(this.props.children, {
@@ -135,7 +123,6 @@ FireForm.propTypes = {
   name: PropTypes.string.isRequired,
   firebaseApp: PropTypes.any.isRequired,
   uid: PropTypes.string,
-  onSubmitSuccess: PropTypes.func,
   onDelete: PropTypes.func,
   handleCreateValues: PropTypes.func,
   handleUpdateValues: PropTypes.func,
