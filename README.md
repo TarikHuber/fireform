@@ -46,6 +46,7 @@ And comes the cool thing. If you are in the Form working on fields and someone e
 ## TO DO
 
 - [X] integrate realtime fnctionality
+- [X] support firestore
 
 
 ## License

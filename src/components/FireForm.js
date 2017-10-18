@@ -120,7 +120,7 @@ class FireForm extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    const {  uid, name, path, firebaseApp, initialize  } = this.props;
+    const {  uid, name, path, firebaseApp, initialize, useFirestore  } = this.props;
     const {  uid: nextUid  } = nextProps;
 
     if(uid && uid!==nextUid){
@@ -134,7 +134,7 @@ class FireForm extends Component {
         this.unsub=firebaseApp.firestore().collection(path).doc(nextUid).onSnapshot(doc=>{
           if(doc.exists){
             this.setState({initialized: true}, ()=>{
-              initialize(name, dic.data(), true)
+              initialize(name, doc.data(), true)
             })
           }
         })
