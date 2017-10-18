@@ -2,12 +2,12 @@ import firebase from 'firebase';
 
 const config= {
   firebase_config: {
-    apiKey: "AIzaSyDRLP6_tADLbshJ7HVmdWXgJDobhBtknfg",
-    authDomain: "firekit-ad5a4.firebaseapp.com",
-    databaseURL: "https://firekit-ad5a4.firebaseio.com",
-    projectId: "firekit-ad5a4",
-    storageBucket: "",
-    messagingSenderId: "90352019016"
+    apiKey: 'AIzaSyB31cMH9nJnERC1WCWA7lQHnY08voLs-Z0',
+    authDomain: 'react-most-wanted-dev.firebaseapp.com',
+    databaseURL: 'https://react-most-wanted-dev.firebaseio.com',
+    projectId: 'react-most-wanted-dev',
+    storageBucket: 'react-most-wanted-dev.appspot.com',
+    messagingSenderId: '70650394824'
   },
   firebase_providers: [
     firebase.auth.GoogleAuthProvider,

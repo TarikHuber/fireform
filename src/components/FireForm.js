@@ -41,19 +41,27 @@ class FireForm extends Component {
 
 
   handleSubmit =(values) => {
-    const { path, uid, firebaseApp} = this.props;
+    const { path, uid, firebaseApp, useFirestore} = this.props;
 
     if(uid){
       const updateValues=this.getUpdateValues(this.clean(values));
-
       if(updateValues){
-        firebaseApp.database().ref().child(`${path}${uid}`).update(updateValues)
+        if(useFirestore){
+          firebaseApp.firestore().collection(path).doc(uid).update(updateValues)
+        }else{
+          firebaseApp.database().ref().child(`${path}${uid}`).update(updateValues)
+        }
       }
     }else{
 
       const createValues=this.getCreateValues(this.clean(values));
+
       if(createValues){
-        firebaseApp.database().ref().child(`${path}`).push(createValues)
+        if(useFirestore){
+          firebaseApp.firestore().collection(path).doc().set(createValues)
+        }else{
+          firebaseApp.database().ref().child(`${path}`).push(createValues)
+        }
       }
 
     }
@@ -61,28 +69,50 @@ class FireForm extends Component {
   }
 
   handleDelete = () => {
-    const { onDelete, path, uid, firebaseApp} = this.props;
+    const { onDelete, path, uid, firebaseApp, useFirestore} = this.props;
 
     if(uid){
-      firebaseApp.database().ref().child(`${path}${uid}`).remove().then(()=>{
-        if(onDelete && onDelete instanceof Function){
-          onDelete();
-        }
-      })
+      if(useFirestore){
+        firebaseApp.firestore().collection(path).doc(uid).delete().then(()=>{
+          if(onDelete && onDelete instanceof Function){
+            onDelete();
+          }
+        })
+      }else{
+        firebaseApp.database().ref().child(`${path}${uid}`).remove().then(()=>{
+          if(onDelete && onDelete instanceof Function){
+            onDelete();
+          }
+        })
+      }
     }
 
   }
 
   componentWillMount(){
-    const { path, uid, name, firebaseApp, initialize} = this.props;
+    const { path, uid, name, firebaseApp, initialize, useFirestore} = this.props;
 
     if(uid){
-      firebaseApp.database().ref(`${path}${uid}`).on('value',
-      snapshot => {
-        this.setState({initialized: true}, ()=>{
-          initialize(name, snapshot.val(), true)
+
+      if(useFirestore){
+
+        this.unsub=firebaseApp.firestore().collection(path).doc(uid).onSnapshot(doc=>{
+          if(doc.exists){
+            this.setState({initialized: true}, ()=>{
+              initialize(name, doc.data(), true)
+            })
+          }
         })
-      })
+
+      }else{
+        firebaseApp.database().ref(`${path}${uid}`).on('value',
+        snapshot => {
+          this.setState({initialized: true}, ()=>{
+            initialize(name, snapshot.val(), true)
+          })
+        })
+      }
+
     }else{
       this.setState({initialValues: {}, initialized:true})
     }
@@ -94,18 +124,41 @@ class FireForm extends Component {
     const {  uid: nextUid  } = nextProps;
 
     if(uid && uid!==nextUid){
-      firebaseApp.database().ref(`${path}${nextUid}`).on('value',
-      snapshot => {
-        this.setState({initialized: true}, ()=>{
-          initialize(name, snapshot.val(), true)
+
+      if(useFirestore){
+
+        if(this.unsub){
+          this.unsub()
+        }
+
+        this.unsub=firebaseApp.firestore().collection(path).doc(nextUid).onSnapshot(doc=>{
+          if(doc.exists){
+            this.setState({initialized: true}, ()=>{
+              initialize(name, dic.data(), true)
+            })
+          }
         })
-      })
+
+
+      }else{
+
+        firebaseApp.database().ref(`${path}${nextUid}`).on('value',
+        snapshot => {
+          this.setState({initialized: true}, ()=>{
+            initialize(name, snapshot.val(), true)
+          })
+        })
+      }
     }
   }
 
   componentWillUnmount(){
     const { path, uid, firebaseApp} = this.props;
     firebaseApp.database().ref(`${path}${uid}`).off()
+
+    if(this.unsub){
+      this.unsub()
+    }
   }
 
   render() {
@@ -121,6 +174,7 @@ class FireForm extends Component {
 FireForm.propTypes = {
   path: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  useFirestore: PropTypes.bool,
   firebaseApp: PropTypes.any.isRequired,
   uid: PropTypes.string,
   onDelete: PropTypes.func,

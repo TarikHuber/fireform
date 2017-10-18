@@ -1,6 +1,6 @@
 {
   "name": "fireform",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "React-Form wrapper for loading and saving data from firebase",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -26,7 +26,7 @@
     "redux-form": "7.x"
   },
   "devDependencies": {
-    "firebase": "^4.4.0",
+    "firebase": "^4.5.2",
     "firebaseui": "^2.3.0",
     "firekit": "^0.1.31",
     "github-markdown-css": "^2.8.0",

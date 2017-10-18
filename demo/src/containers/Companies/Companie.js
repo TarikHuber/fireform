@@ -10,6 +10,7 @@ import FontIcon from 'material-ui/FontIcon';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import { withFirebase } from 'firekit';
+import firestore from 'firebase/firestore'
 import FireForm from '../../../../src';
 
 const path='/companies/';
@@ -87,13 +88,14 @@ class Companie extends Component {
         <div style={{margin: 15, display: 'flex'}}>
 
           <FireForm
+            useFirestore={true}
             firebaseApp={firebaseApp}
             name={'companie'}
             path={`${path}`}
             onSubmitSuccess={(values, key)=>{
               history.push('/companies');
             }}
-            onDelete={(values)=>{history.push('/companies');}}
+            //onDelete={(values)=>{history.push('/companies');}}
             handleCreateValues={this.handleCreateValues}
             uid={match.params.uid}>
             <Form />
