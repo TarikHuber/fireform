@@ -21,7 +21,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "116.x",
+    "react": "16.x",
     "firebase": "6.x",
     "redux-form": "8.x"
   },
