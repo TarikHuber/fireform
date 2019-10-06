@@ -1,6 +1,6 @@
 {
   "name": "fireform",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React-Form wrapper for loading and saving data from firebase",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -23,16 +23,18 @@
   "peerDependencies": {
     "prop-types": "15.x",
     "react": "16.x",
+    "react-dom": "16.x",
+    "redux": "4.x",
     "react-redux": "7.x",
     "redux-form": "8.x"
   },
   "devDependencies": {
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-redux": "^7.1.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-redux": "^7.1.1",
     "redux": "^4.0.4",
-    "redux-form": "^8.2.5"
+    "redux-form": "^8.2.6"
   },
   "author": "Tarik Huber",
   "homepage": "https://www.react-most-wanted.com/",
