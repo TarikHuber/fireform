@@ -1,6 +1,6 @@
 {
   "name": "fireform",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React-Form wrapper for loading and saving data from firebase",
   "main": "lib/index.js",
   "module": "es/index.js",
